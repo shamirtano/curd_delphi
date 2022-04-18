@@ -63,6 +63,7 @@ object FMenu: TFMenu
       end
       object ListadeProductos1: TMenuItem
         Caption = '&Lista de Productos'
+        OnClick = ListadeProductos1Click
       end
     end
     object ListadeProductos2: TMenuItem

@@ -30,6 +30,7 @@ type
     procedure Productos2Click(Sender: TObject);
     procedure AgregarCliente2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure ListadeProductos1Click(Sender: TObject);
     //procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -46,7 +47,7 @@ implementation
 
 {$R *.dfm}
 
-uses UModulo, UClientes, UProductos, ULClientes;
+uses UModulo, UClientes, UProductos, ULClientes, ULProductos;
 
 //Mensaje de confirmacion al salir
 procedure TFMenu.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -117,6 +118,13 @@ begin
      (Forma.Components[i] as TLabeledEdit).Clear;
    end;
  end;
+end;
+
+procedure TFMenu.ListadeProductos1Click(Sender: TObject);
+begin
+  Modulo.QProductos.Close;
+  Modulo.QProductos.Open;
+  FLProductos.ShowModal;
 end;
 
 //Funcion para comprobar edit vacios

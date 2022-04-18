@@ -38,20 +38,21 @@ implementation
 uses UMenu, UModulo, ULClientes;
 
 function TFClientes.insertarCliente(cliente, nombre_cliente, direccion : String): boolean;
+var
+ error : String;
 begin
   result := false;
   With Modulo.QClientes do
   begin
     active := false;
-    sql.Clear;
+    Sql.Clear;
     sql.Text := 'INSERT INTO Clientes (CLIENTE, NOMBRE_CLIENTE, DIRECCION) ' +
       'VALUES('+cliente+', '+nombre_cliente+', '+direccion+')';
-    ShowMessage(sql.Text);
     ExecSql;
+    ShowMessage('Registro agregado exitosamente');
+    FMenu.limpiarLEdit(FCLientes);
+    LEId.SetFocus;
   end;
-  ShowMessage('Registro agregado exitosamente');
-  FMenu.limpiarLEdit(FCLientes);
-  LEId.SetFocus;
 end;
 
 function TFClientes.editarCliente(cliente, nombre_cliente, direccion : String): boolean;
@@ -65,7 +66,6 @@ begin
     Params[0].AsString := LENombre.Text;
     Params[1].AsString := LEDireccion.Text;
     Params[2].AsString := LEId.Text;
-    ShowMessage(sql.Text);
     ExecSql;
   end;
   ShowMessage('Registro actualizado exitosamente');
@@ -87,7 +87,6 @@ begin
   end;
   ShowMessage('Registro eliminado exitosamente');
 end;
-
 
 procedure TFClientes.FormShow(Sender: TObject);
 begin
@@ -119,14 +118,14 @@ begin
     BtnEditar.Enabled   := true;
     BtnEliminar.Enabled := false;
     LENombre.SetFocus;
-  end
+  end;
 end;
 
 procedure TFClientes.BtnCerrarClick(Sender: TObject);
 begin
   FMenu.limpiarLEdit(FClientes);
   LEId.SetFocus;
-  FLClientes.refreshGrid;
+  FLClientes.refreshGrid('Clientes');
   Close;
 end;
 
@@ -153,10 +152,24 @@ begin
     showMessage('Hay campos vacios y son obligatorios');
   end
   else begin
-    cliente := quotedstr(LEId.Text);
-    nombre_cliente := quotedstr(LENombre.Text);
-    direccion := quotedstr(LEDireccion.Text);
-    insertarCliente(cliente, nombre_cliente, direccion);
+    cliente         := quotedstr(LEId.Text);
+    nombre_cliente  := quotedstr(LENombre.Text);
+    direccion       := quotedstr(LEDireccion.Text);
+    With Modulo.TClientes do
+    begin
+      Close;
+      Open;
+      Edit;
+      if findKey([LEId.Text]) then
+      begin
+        ShowMessage('Error: El registro ya existe');
+        LEId.SetFocus;
+      end
+      else begin
+        insertarCliente(cliente, nombre_cliente, direccion);
+      end;
+    end;
+    LEId.SetFocus;
   end;
 end;
 

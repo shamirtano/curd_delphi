@@ -27,7 +27,7 @@ type
   private
     { Private declarations }
   public
-    procedure refreshGrid;
+    procedure refreshGrid(tabla: String);
     { Public declarations }
   end;
 
@@ -45,7 +45,7 @@ procedure TFLClientes.BtnAgregarClick(Sender: TObject);
 begin
   FClientes.Caption := 'Información del Cliente - Agregar';
   FClientes.ShowModal;
-  RefreshGrid;
+  RefreshGrid('Clientes');
 end;
 
 //Boton Cerrar
@@ -64,7 +64,7 @@ begin
   if Trim(Grid.Fields[0].Text) <> '' then
   begin
     FClientes.ShowModal;
-    RefreshGrid;
+    RefreshGrid('Clientes');
   end
   else begin
     ShowMessage('No ha seleccionado ningún registro');
@@ -77,7 +77,7 @@ begin
   if Trim(Grid.Fields[0].Text) = '' then
   begin
     MessageDlg('No ha seleccionado ningún registro', mtInformation, [mbOk], 0);
-    refreshGrid;
+    refreshGrid('Clientes');
     exit;
   end
   else begin
@@ -86,7 +86,7 @@ begin
        FClientes.eliminarCliente(Grid.Fields[0].Text);
     end;
   end;
-  refreshGrid;
+  refreshGrid('Clientes');
 end;
 
 //Evento OnShow del form
@@ -116,12 +116,12 @@ begin
 end;
 
 //Método para refrescarg el Grid
-procedure TFLClientes.refreshGrid;
+procedure TFLClientes.refreshGrid(tabla: String);
 begin
-  With Modulo.QClientes do
+  With Modulo.QTemp do
   begin
     active := false;
-    sql.Text := 'SELECT * FROM Clientes';
+    sql.Text := 'SELECT * FROM ' + tabla;
     active := true;
   end;
   LEBuscar.Clear;

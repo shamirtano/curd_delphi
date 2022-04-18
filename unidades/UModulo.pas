@@ -19,6 +19,8 @@ type
     QProductos: TMyQuery;
     QCabeza_Factura: TMyQuery;
     QDetalle_Factura: TMyQuery;
+    QTemp: TMyQuery;
+    TClientes: TMyTable;
   private
     { Private declarations }
   public

@@ -54,7 +54,21 @@ begin
     producto        := quotedstr(LECodigo.Text);
     nombre_producto := quotedstr(LENombre.Text);
     valor           := quotedstr(LEPrecio.Text);
-    insertarProducto(producto, nombre_producto, valor);
+    With Modulo.TClientes do
+    begin
+      Close;
+      Open;
+      Edit;
+      if findKey([LECodigo.Text]) then
+      begin
+        ShowMessage('El Registro ya existe para el producto con Código / SKU: '+producto);
+        LECodigo.SetFocus;
+      end
+      else begin
+        insertarProducto(producto, nombre_producto, valor);
+      end;
+    end;
+    LECodigo.SetFocus;
   end;
 end;
 
@@ -69,7 +83,6 @@ begin
     Params[0].AsString := LECodigo.Text;
     Params[1].AsString := LENombre.Text;
     Params[2].AsString := LEPrecio.Text;
-    ShowMessage(sql.Text);
     ExecSql;
   end;
   ShowMessage('Registro actualizado exitosamente');
@@ -101,12 +114,11 @@ begin
     sql.Clear;
     sql.Text := 'INSERT INTO Productos (Producto, Nombre_Producto, Valor) ' +
       'VALUES('+producto+', '+nombre_producto+', '+valor+')';
-    ShowMessage(sql.Text);
     ExecSql;
+    ShowMessage('Registro agregado exitosamente');
+    FMenu.limpiarLEdit(FProductos);
+    LECodigo.SetFocus;
   end;
-  ShowMessage('Registro agregado exitosamente');
-  FMenu.limpiarLEdit(FProductos);
-  LECodigo.SetFocus;
 end;
 
 procedure TFProductos.FormShow(Sender: TObject);
@@ -134,14 +146,12 @@ begin
       LENombre.Text := FieldByName('nombre_producto').AsString;
       LEPrecio.Text := FieldByName('valor').AsString;
     end;
-    LECodigo.ReadOnly := true;
+    LECodigo.ReadOnly   := true;
     BtnGuardar.Enabled  := false;
     BtnEditar.Enabled   := true;
     BtnEliminar.Enabled := false;
     LENombre.SetFocus;
   end;
 end;
-
-
 
 end.
