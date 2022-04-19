@@ -7,7 +7,8 @@ uses
   UClientes in '..\unidades\UClientes.pas' {FClientes},
   UProductos in '..\unidades\UProductos.pas' {FProductos},
   ULClientes in '..\unidades\ULClientes.pas' {FLClientes},
-  ULProductos in '..\unidades\ULProductos.pas' {FLProductos};
+  ULProductos in '..\unidades\ULProductos.pas' {FLProductos},
+  UVenta in '..\unidades\UVenta.pas' {FVenta};
 
 {$R *.res}
 
@@ -20,5 +21,6 @@ begin
   Application.CreateForm(TFProductos, FProductos);
   Application.CreateForm(TFLClientes, FLClientes);
   Application.CreateForm(TFLProductos, FLProductos);
+  Application.CreateForm(TFVenta, FVenta);
   Application.Run;
 end.

@@ -27,7 +27,13 @@ object FLProductos: TFLProductos
       Height = 336
       Align = alBottom
       DataSource = DSProductos
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentFont = False
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -38,22 +44,52 @@ object FLProductos: TFLProductos
         item
           Expanded = False
           FieldName = 'PRODUCTO'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
           Title.Caption = 'C'#243'digo / SKU'
-          Width = 100
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 140
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'NOMBRE_PRODUCTO'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
           Title.Caption = 'Nombres del Producto'
-          Width = 350
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 420
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VALOR'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
           Title.Caption = 'Precio de Venta'
-          Width = 280
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 150
           Visible = True
         end>
     end
@@ -73,6 +109,7 @@ object FLProductos: TFLProductos
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      OnKeyPress = LEBuscarKeyPress
     end
   end
   object Panel2: TPanel
@@ -211,6 +248,7 @@ object FLProductos: TFLProductos
         F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F8F9FAFDF1E6CFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       TabOrder = 1
+      OnClick = BtnEditarClick
     end
     object BtnEliminar: TBitBtn
       Left = 536
@@ -276,6 +314,7 @@ object FLProductos: TFLProductos
         FFFFFFFFFFFFFFFFFFFFFBF9F2EDE5C8EEE7CCEEE7CCEEE7CCEEE7CCEDE5C8FA
         F9F2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       TabOrder = 2
+      OnClick = BtnEliminarClick
     end
     object BtnCerrar: TBitBtn
       Left = 645

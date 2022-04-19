@@ -18,6 +18,8 @@ type
     procedure BtnCerrarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BtnGuardarClick(Sender: TObject);
+    procedure BtnEditarClick(Sender: TObject);
+    procedure BtnEliminarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,6 +43,33 @@ begin
   FMenu.limpiarLEdit(FProductos);
   LECodigo.SetFocus;
   Close;
+end;
+
+procedure TFProductos.BtnEditarClick(Sender: TObject);
+var
+  producto, nombre_producto, valor : String;
+begin
+  if not FMenu.esVacio([LECodigo.Text, LENombre.Text, LEPrecio.Text]) then begin
+    showMessage('Hay campos vacios y son obligatorios');
+  end
+  else begin
+    producto        := quotedstr(LECodigo.Text);
+    nombre_producto := quotedstr(LENombre.Text);
+    valor           := quotedstr(LEPrecio.Text);
+    editarProducto(producto, nombre_producto, valor);
+  end;
+end;
+
+procedure TFProductos.BtnEliminarClick(Sender: TObject);
+begin
+  if Trim(LECodigo.Text) = '' then
+  begin
+    ShowMessage('Debe escribir el código o SKU del producto que desea eliminar');
+    LECodigo.SetFocus;
+  end
+  else begin
+    eliminarProducto(LECodigo.Text);
+  end;
 end;
 
 procedure TFProductos.BtnGuardarClick(Sender: TObject);

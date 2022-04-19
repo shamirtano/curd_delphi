@@ -84,9 +84,9 @@ begin
     if Application.MessageBox('¿Está seguro que desea eliminar el registro?', 'Eliminar Cliente', 36) = 6 then
     begin
        FClientes.eliminarCliente(Grid.Fields[0].Text);
+       refreshGrid('Clientes');
     end;
   end;
-  refreshGrid('Clientes');
 end;
 
 //Evento OnShow del form
@@ -109,13 +109,18 @@ begin
   begin
     active := false;
     SQL.Clear;
-    SQL.Text := 'SELECT * FROM Clientes WHERE Nombre_Cliente Like :a';
+    SQL.Text := 'SELECT * FROM Clientes WHERE Nombre_Cliente Like :a or Cliente Like :b or Direccion Like :c';
     Params[0].AsString := '%' + LEBuscar.Text + '%';
+    Params[1].AsString := '%' + LEBuscar.Text + '%';
+    Params[2].AsString := '%' + LEBuscar.Text + '%';
     active := true;
   end;
 end;
 
-//Método para refrescarg el Grid
+{ *----------------------------------------------------------------------------
+Método para refrescar el Grid, como parámetro se escribe el nombre de la
+tabla en la base de datos
+------------------------------------------------------------------------------}
 procedure TFLClientes.refreshGrid(tabla: String);
 begin
   With Modulo.QTemp do

@@ -125,6 +125,10 @@
             <Form>FLProductos</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\unidades\UVenta.pas">
+            <Form>FVenta</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

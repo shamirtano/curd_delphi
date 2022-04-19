@@ -50,6 +50,7 @@ object FMenu: TFMenu
       Caption = '&Operaciones'
       object NuevaVenta1: TMenuItem
         Caption = '&Nueva Venta'
+        OnClick = NuevaVenta1Click
       end
       object ConsultarVentas1: TMenuItem
         Caption = '&Consultar Ventas'

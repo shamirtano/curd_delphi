@@ -1,7 +1,7 @@
 object FClientes: TFClientes
   Left = 0
   Top = 0
-  Caption = 'Informaci'#243'n de los Clientes'
+  Caption = 'Informaci'#243'n del Cliente - Agregar'
   ClientHeight = 227
   ClientWidth = 496
   Color = clBtnFace
@@ -211,6 +211,7 @@ object FClientes: TFClientes
       FFFFFFFFFFFFFFFFFFFFFBF9F2EDE5C8EEE7CCEEE7CCEEE7CCEEE7CCEDE5C8FA
       F9F2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
     TabOrder = 5
+    OnClick = BtnEliminarClick
   end
   object BtnCerrar: TBitBtn
     Left = 400

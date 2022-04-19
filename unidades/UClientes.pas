@@ -19,6 +19,7 @@ type
     procedure BtnGuardarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BtnEditarClick(Sender: TObject);
+    procedure BtnEliminarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -86,6 +87,7 @@ begin
     ExecSql;
   end;
   ShowMessage('Registro eliminado exitosamente');
+  FLClientes.refreshGrid('Clientes');
 end;
 
 procedure TFClientes.FormShow(Sender: TObject);
@@ -141,6 +143,18 @@ begin
     nombre_cliente := quotedstr(LENombre.Text);
     direccion := quotedstr(LEDireccion.Text);
     editarCliente(cliente, nombre_cliente, direccion);
+  end;
+end;
+
+procedure TFClientes.BtnEliminarClick(Sender: TObject);
+begin
+  if Trim(LEId.Text) = '' then
+  begin
+    ShowMessage('Debe escribir la identificación del cliente a eliminar');
+    LEId.SetFocus;
+  end
+  else begin
+    eliminarCliente(LEId.Text);
   end;
 end;
 

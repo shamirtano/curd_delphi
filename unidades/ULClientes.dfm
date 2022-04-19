@@ -28,7 +28,13 @@ object FLClientes: TFLClientes
       Height = 336
       Align = alBottom
       DataSource = DSClientes
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentFont = False
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -40,6 +46,11 @@ object FLClientes: TFLClientes
           Expanded = False
           FieldName = 'CLIENTE'
           Title.Caption = 'Identificaci'#243'n'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 100
           Visible = True
         end
@@ -47,6 +58,11 @@ object FLClientes: TFLClientes
           Expanded = False
           FieldName = 'NOMBRE_CLIENTE'
           Title.Caption = 'Nombres y Apellidos'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 350
           Visible = True
         end
@@ -54,12 +70,17 @@ object FLClientes: TFLClientes
           Expanded = False
           FieldName = 'DIRECCION'
           Title.Caption = 'Direcci'#243'n'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 280
           Visible = True
         end>
     end
     object LEBuscar: TLabeledEdit
-      Left = 8
+      Left = 10
       Top = 24
       Width = 465
       Height = 27

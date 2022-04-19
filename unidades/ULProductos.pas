@@ -20,6 +20,9 @@ type
     DSProductos: TDataSource;
     procedure BtnCerrarClick(Sender: TObject);
     procedure BtnAgregarClick(Sender: TObject);
+    procedure LEBuscarKeyPress(Sender: TObject; var Key: Char);
+    procedure BtnEditarClick(Sender: TObject);
+    procedure BtnEliminarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,6 +50,50 @@ begin
   FMenu.limpiarLEdit(FLProductos);
   LEBuscar.SetFocus;
   Close;
+end;
+
+procedure TFLProductos.BtnEditarClick(Sender: TObject);
+begin
+  FProductos.Caption := 'Información del Producto - Actualizar';
+  FProductos.Hint := Grid.Fields[0].Text;
+  if Trim(Grid.Fields[0].Text) <> '' then
+  begin
+    FProductos.ShowModal;
+    FLClientes.RefreshGrid('Productos');
+  end
+  else begin
+    ShowMessage('No ha seleccionado ningún registro');
+  end;
+end;
+
+procedure TFLProductos.BtnEliminarClick(Sender: TObject);
+begin
+  if Trim(Grid.Fields[0].Text) = '' then
+  begin
+    MessageDlg('No ha seleccionado ningún registro', mtInformation, [mbOk], 0);
+    FLClientes.refreshGrid('Productos');
+    exit;
+  end
+  else begin
+    if Application.MessageBox('¿Está seguro que desea eliminar el registro?', 'Eliminar Producto', 36) = 6 then
+    begin
+       FProductos.eliminarProducto(Grid.Fields[0].Text);
+       FLCLientes.refreshGrid('Productos');
+    end;
+  end;
+end;
+
+procedure TFLProductos.LEBuscarKeyPress(Sender: TObject; var Key: Char);
+begin
+  With Modulo.QProductos do
+  begin
+    active := false;
+    SQL.Clear;
+    SQL.Text := 'SELECT * FROM Productos WHERE Nombre_producto Like :a or producto Like :b';
+    Params[0].AsString := '%' + LEBuscar.Text + '%';
+    Params[1].AsString := '%' + LEBuscar.Text + '%';
+    active := true;
+  end;
 end;
 
 end.
