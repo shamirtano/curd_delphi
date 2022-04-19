@@ -21,7 +21,7 @@ type
     GProducto: TDBGrid;
     GDetalle: TDBGrid;
     LECantidad: TLabeledEdit;
-    SpeedButton1: TSpeedButton;
+    SBAgregar: TSpeedButton;
     LDocumento: TLabel;
     Label3: TLabel;
     LECliente: TLabeledEdit;
@@ -34,7 +34,6 @@ type
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
-    Grilla: TStringGrid;
     procedure FormShow(Sender: TObject);
     procedure LEClienteKeyPress(Sender: TObject; var Key: Char);
     procedure LEProductoKeyPress(Sender: TObject; var Key: Char);
@@ -44,17 +43,19 @@ type
     procedure BitBtn3Click(Sender: TObject);
     procedure GClienteCellClick(Column: TColumn);
     procedure GProductoCellClick(Column: TColumn);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure SBAgregarClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure calcular;
     procedure bajarProducto;
   end;
 
 var
   FVenta: TFVenta;
-  articulo: array of String;
+  codigo, detalle: String;
+  vUni, cant, subtotal, total : Double;
 
 implementation
 
@@ -63,11 +64,34 @@ implementation
 uses UModulo;
 
 procedure TFVenta.bajarProducto;
+var
+  cantidad, precio : String;
 begin
+  cantidad := FloatToStr(cant);
+  precio := FloatToStr(vUni);
   With Modulo.QDetalle_Factura do
   begin
-    active := true;
+    active := false;
+    Sql.Clear;
+    Sql.Text := 'INSERT INTO detalle_factura(NUMERO, PRODUCTO, CANTIDAD, VALOR) '+
+                'VALUES ('+LEFacturaNo.Text+', '+codigo+', '+cantidad+', '+precio+')';
+    ExecSql;
+    LEProducto.Clear;
+    LEProducto.SetFocus;
   end;
+  With Modulo.QDetalle_Factura do
+  begin
+    active := false;
+    Sql.Clear;
+    Sql.Add('SELECT * FROM detalle_factura df');
+    Sql.Add('INNER JOIN Productos p ON p.producto = df.producto');
+    Sql.Add('WHERE numero = :a');
+    Params[0].AsString := LEFacturaNo.Text;
+    Open;
+  end;
+  GDetalle.Columns[0].Field := Modulo.QDetalle_Factura.FieldByName('producto');
+  GDetalle.Columns[1].Field := Modulo.QDetalle_Factura.FieldByName('cantidad');
+  LTotal.Caption := FloatToStr(total);
 end;
 
 procedure TFVenta.BitBtn3Click(Sender: TObject);
@@ -75,6 +99,22 @@ begin
   LECliente.Clear;
   LEProducto.Clear;
   Close;
+end;
+
+procedure TFVenta.calcular;
+begin
+  if Trim(LECantidad.Text) = '' then
+  begin
+    ShowMessage('Debes ingresar la cantidad a vender');
+    LECantidad.SetFocus;
+  end
+  else
+  begin
+    cant := StrToFloat(LECantidad.Text);
+    subtotal := cant * vUni;
+    total := total + subtotal;
+    bajarProducto;
+  end;
 end;
 
 procedure TFVenta.FormShow(Sender: TObject);
@@ -105,10 +145,10 @@ end;
 
 procedure TFVenta.GProductoCellClick(Column: TColumn);
 begin
-  articulo[0] := GProducto.Fields[0].AsString;
-  articulo[1] := GProducto.Fields[1].AsString;
-  articulo[2] := GProducto.Fields[2].AsString;
-  LEProducto.Text := articulo[1];
+  codigo  := GProducto.Fields[0].AsString;
+  detalle := GProducto.Fields[1].AsString;
+  vUni    := GProducto.Fields[2].AsFloat;
+  LEProducto.Text := detalle;
   LECantidad.SetFocus;
 end;
 
@@ -157,9 +197,9 @@ begin
   end;
 end;
 
-procedure TFVenta.SpeedButton1Click(Sender: TObject);
+procedure TFVenta.SBAgregarClick(Sender: TObject);
 begin
-  bajarProducto;
+  calcular;
 end;
 
 end.

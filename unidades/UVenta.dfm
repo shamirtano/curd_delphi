@@ -15,7 +15,7 @@ object FVenta: TFVenta
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object SpeedButton1: TSpeedButton
+  object SBAgregar: TSpeedButton
     Left = 478
     Top = 114
     Width = 41
@@ -27,7 +27,7 @@ object FVenta: TFVenta
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    OnClick = SpeedButton1Click
+    OnClick = SBAgregarClick
   end
   object LDocumento: TLabel
     Left = 90
@@ -333,6 +333,12 @@ object FVenta: TFVenta
     Width = 751
     Height = 241
     DataSource = DSDetalle
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 4
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -342,6 +348,7 @@ object FVenta: TFVenta
     Columns = <
       item
         Expanded = False
+        FieldName = 'PRODUCTO'
         Title.Caption = 'C'#243'digo'
         Title.Font.Charset = DEFAULT_CHARSET
         Title.Font.Color = clWindowText
@@ -375,6 +382,7 @@ object FVenta: TFVenta
       end
       item
         Expanded = False
+        FieldName = 'VALOR'
         Title.Caption = 'Vr. Unitario'
         Title.Font.Charset = DEFAULT_CHARSET
         Title.Font.Color = clWindowText
@@ -480,7 +488,7 @@ object FVenta: TFVenta
   end
   object GProducto: TDBGrid
     Left = 8
-    Top = 179
+    Top = 139
     Width = 369
     Height = 121
     DataSource = DSProducto
@@ -494,8 +502,8 @@ object FVenta: TFVenta
     OnCellClick = GProductoCellClick
   end
   object GCliente: TDBGrid
-    Left = 261
-    Top = 240
+    Left = 485
+    Top = 256
     Width = 508
     Height = 121
     DataSource = DSCliente
@@ -507,13 +515,6 @@ object FVenta: TFVenta
     TitleFont.Style = []
     Visible = False
     OnCellClick = GClienteCellClick
-  end
-  object Grilla: TStringGrid
-    Left = 8
-    Top = 285
-    Width = 754
-    Height = 120
-    TabOrder = 10
   end
   object DSDetalle: TDataSource
     DataSet = Modulo.QDetalle_Factura

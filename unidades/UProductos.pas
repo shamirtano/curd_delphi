@@ -142,7 +142,7 @@ begin
     active := false;
     sql.Clear;
     sql.Text := 'INSERT INTO Productos (Producto, Nombre_Producto, Valor) ' +
-      'VALUES('+producto+', '+nombre_producto+', '+valor+')';
+                'VALUES('+producto+', '+nombre_producto+', '+valor+')';
     ExecSql;
     ShowMessage('Registro agregado exitosamente');
     FMenu.limpiarLEdit(FProductos);
